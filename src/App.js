@@ -10,6 +10,7 @@ import Input from './components/Input/Input';
 import InputLabel from '@mui/material/InputLabel';
 import { validateEmail, validateName, validatePassword } from './components/ValidationCheck/ValidationCheck';
 import AddForm from './components/AddForm/AddForm';
+import NewInput from './components/newInput/NewInput';
 
 
 const App = () => {
@@ -19,6 +20,8 @@ const App = () => {
   const [showInput, setShowInput] = useState(false)
   const handleClick = () => showInput ? setShowInput(false) : setShowInput(true);
   const onSubmit = data => console.log(data);
+  const handleDeleteClick = (id) => setInputAdd(inputAdd.filter(el => id !== el.id))
+  console.log(inputAdd)
 
   return (
     <div className="App">
@@ -64,14 +67,26 @@ const App = () => {
           )}
         />
         {
-          inputAdd?.map((item, i) => (
-            <Controller
-              key={i}
+          inputAdd?.map((item) => (
+            <Controller 
+              key={item.id}
               control={ control }
               name={item.placeholder}
               rules={validateName}
               render={({ field }) => (
-                <Input field={field} errors={errors.Password} type={item.type}>{item.placeholder}</Input>
+                <>
+                  <NewInput field={field} errors={errors.Name} type={item.type}>{item.placeholder}</NewInput>
+                  <Button 
+                    variant="outlined" 
+                    size='small'
+                    onClick={() => (
+                      handleDeleteClick(item.id)
+                      // console.log(item.id)
+                      )}
+                  >
+                    Delete
+                  </Button>
+                  </>
               )}
             />
           ))

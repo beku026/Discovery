@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-const Input = ({ field, errors, children, type }) => {
+const today = new Date();
+const date = today.setDate(today.getDate()); 
+const defaultValue = new Date(date).toISOString().split('T')[0]
+
+const NewInput = ({ field, errors, children, type}) => {
   const [inputState, setInputState] = useState('');
   return (
     <TextField 
-    title='click'
       label={children}
       size='small'
       margin='normal'
       type={type}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      inputProps={{
+        min: defaultValue
+      }}
       className='auth-form_input'
       fullWidth
       onChange={e => {
@@ -23,4 +32,4 @@ const Input = ({ field, errors, children, type }) => {
   )
 }
 
-export default Input;
+export default NewInput;

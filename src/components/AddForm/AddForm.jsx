@@ -16,6 +16,7 @@ const AddForm = ({ setInputAdd, inputAdd }) => {
   const [inputValue, setInputValue] = useState({
     placeholder: '',
     type: '',
+    id: Date.now(),
   })
   const ITEM_HEIGHT = 30;
   const ITEM_PADDING_TOP = 8;
@@ -29,15 +30,17 @@ const AddForm = ({ setInputAdd, inputAdd }) => {
   };
 
   const handleClick = () => {
-    setInputAdd([...inputAdd, ((inputValue.type && inputValue.placeholder) && inputValue )])
+    setInputAdd([...inputAdd, inputValue ])
     setInputValue({
       placeholder: '',
       type: '',
+      id: Date.now()
     })
   }
 
   return (
     <div className='input_add_forrm'>
+      <h4>Keyword</h4>
       <TextField
         size='small'
         label="placeholder to new form"
